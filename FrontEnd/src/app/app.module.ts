@@ -1,7 +1,3 @@
-import { AmigoService } from './amigo/amigo.service';
-import { UserService } from './shared/user.service';
-import { HomeService } from './home/home.service';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
@@ -13,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DropdownModule } from 'primeng/dropdown';
+import { DataTablesModule } from 'angular-datatables';
 
 import { appRoutes } from './routes';
 
@@ -23,6 +20,10 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AmigoComponent } from './amigo/amigo.component';
+
+import { AmigoService } from './amigo/amigo.service';
+import { UserService } from './shared/user.service';
+import { HomeService } from './home/home.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AmigoComponent } from './amigo/amigo.component';
     BrowserAnimationsModule,
     NgSelectModule,
     DropdownModule,
+    DataTablesModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot(),

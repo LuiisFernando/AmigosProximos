@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
 @Injectable()
 export class AmigoService {
 
   readonly rootUrl = 'http://localhost:58272';
-
 
   constructor(
     private http: HttpClient,

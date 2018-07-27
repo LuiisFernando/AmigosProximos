@@ -1,26 +1,35 @@
 import { ToastrService } from 'ngx-toastr';
 import { AmigoService } from './amigo.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Observable } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+
+import { Observable, Subject } from 'rxjs';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-amigo',
   templateUrl: './amigo.component.html',
   styleUrls: ['./amigo.component.css']
 })
-export class AmigoComponent implements OnInit {
+export class AmigoComponent implements OnInit, OnDestroy {
 
-  amigos: any;
+  amigos: any = [];
   amigoSelecionado: any;
 
   modalRef: BsModalRef;
 
   amigosProximos: Observable<Object>;
   amigosProximosSelecionados = [];
+
+  dtOptions: DataTables.Settings = {};
+  private datatableElement: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject<any>();
 
   mensagemErro = '';
 
@@ -32,6 +41,15 @@ export class AmigoComponent implements OnInit {
 
   ngOnInit() {
     this.obterAmigos();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  displayToConsole(datatableElement: DataTableDirective): void {
+    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
   }
 
   openModal(template: TemplateRef<any>) {
@@ -58,8 +76,19 @@ export class AmigoComponent implements OnInit {
   }
 
   obterAmigos() {
+
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2
+    };
+
     this.amigoService.obterAmigos().subscribe(
-      (data: any) => this.amigos = data
+      (data: any) => {
+        this.amigos = data;
+        console.log(this.amigos);
+        this.dtTrigger.next();
+      }
     );
   }
 

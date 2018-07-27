@@ -9,7 +9,7 @@
         </li>
       </ul>
   </div>
-  </nav>
+</nav>
   
 <div class="container"  style="margin-top: 30px;">
   
@@ -29,31 +29,28 @@
 
   <br>
 
-  <div class="row">
-      <div class="col">
-          <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">X</th>
-                  <th scope="col">Y</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let amigo of amigos">
-                  <td>
-                    <button type="button" (click)="openModalEdit(template,  amigo.ID)" class="btn btn-success btn-sm">Ver</button>
-                    <button type="button"(click)="excluirAmigo(amigo.ID)" class="btn btn-danger btn-sm">Excluir</button>
-                  </td>
-                  <td>{{ amigo.Nome }}</td>
-                  <td>{{ amigo.PosicaoX }}</td>
-                  <td>{{ amigo.PosicaoY }}</td>
-                </tr>
-              </tbody>
-            </table>
-      </div>
-  </div>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">X</th>
+            <th scope="col">Y</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let amigo of amigos">
+            <td>
+              <button type="button" (click)="openModalEdit(template,  amigo.ID)" class="btn btn-success btn-sm">Ver</button>
+              <button type="button"(click)="excluirAmigo(amigo.ID)" class="btn btn-danger btn-sm">Excluir</button>
+            </td>
+            <td>{{ amigo.Nome }}</td>
+            <td>{{ amigo.PosicaoX }}</td>
+            <td>{{ amigo.PosicaoY }}</td>
+          </tr>
+        </tbody>
+  </table>
+  
 </div>
  
 <ng-template #templateInsert>

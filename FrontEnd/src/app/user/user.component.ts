@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -22,12 +23,11 @@ export class UserComponent implements OnInit {
   onSubmit(userName, password) {
     this.userService.userAuthentication(userName, password).subscribe(
       (data: any) => {
-
         localStorage.setItem('token', data.access_token);
+        this.userService.isLogged(true);
         this.router.navigate(['/home']);
       },
       (err: HttpErrorResponse) => {
-
         console.log(err);
       });
   }
