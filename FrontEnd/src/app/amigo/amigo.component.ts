@@ -9,7 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 
 import { Observable, Subject } from 'rxjs';
 
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 
 @Component({
   selector: 'app-amigo',
